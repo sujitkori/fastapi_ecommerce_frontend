@@ -49,9 +49,9 @@ const AdminProductsPage = () => {
   const { mutate: deleteProduct, isPending: isDeletingPending } =
     useDeleteProduct();
 
-  const currentPage = Math.floor(queryParams.skip / queryParams.limit) + 1;
+  const currentPage = Math.floor((queryParams.skip ?? 0) / (queryParams.limit || 10)) + 1;
 
-  const totalPages = Math.ceil(data?.total / queryParams.limit);
+  const totalPages = Math.ceil((data?.total || 0)/ (queryParams.limit || 10));
 
   const handleSearchChange = (value: string) => {
     setQueryParams((prev) => ({
@@ -97,7 +97,7 @@ const AdminProductsPage = () => {
   const handlePageChange = (page: number) => {
     setQueryParams((prev) => ({
       ...prev,
-      skip: (page - 1) * prev.limit,
+      skip: (page - 1) * (prev.limit ?? 10),
     }));
   };
 
@@ -186,7 +186,7 @@ const AdminProductsPage = () => {
     <div className="p-8">
       <ProductTable
         products={data.data}
-        search={queryParams.search}
+        search={queryParams.search ?? ""}
         onSearchChange={handleSearchChange}
         selectedCategory={queryParams.category_id}
         onCategoryChange={handleCategoryChange}

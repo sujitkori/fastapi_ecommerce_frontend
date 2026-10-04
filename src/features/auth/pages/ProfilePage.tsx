@@ -21,9 +21,9 @@ const ProfilePage = () => {
     <div className="p-8">
             <h1 className="text-3xl font-bold mb-6">Profile</h1>
 
-            <p><strong>ID:</strong> {data.id}</p>
-            <p><strong>Name:</strong> {data.name}</p>
-            <p><strong>Email:</strong> {data.email}</p>
+            <p><strong>ID:</strong> {data?.id}</p>
+            <p><strong>Name:</strong> {data?.name}</p>
+            <p><strong>Email:</strong> {data?.email}</p>
         </div>
   )
 }

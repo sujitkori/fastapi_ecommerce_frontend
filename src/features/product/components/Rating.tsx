@@ -16,7 +16,7 @@ const Rating = ({averageRating, reviewCount}:RatingProps) => {
         Array.from({length:5}).map((_, index) => {
             const starNumber = index + 1;
             const fullStars = Math.floor(averageRating ?? 0);
-            const hasHalfStar = averageRating  - fullStars >= 0.5
+            const hasHalfStar = (averageRating ?? 0)  - fullStars >= 0.5
 
             if (starNumber <= fullStars){
                 return <FaStar key={starNumber} className="text-yellow-500"/>

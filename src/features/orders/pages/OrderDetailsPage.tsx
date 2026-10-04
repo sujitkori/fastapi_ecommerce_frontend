@@ -27,6 +27,9 @@ const OrderDetailsPage = () => {
     useCreatePayment();
 
   const handleCreatePayment = () => {
+    if(!data){
+      return
+    }
     createPaymentMutation(
       {
       orderId: data.id,
@@ -56,6 +59,10 @@ const OrderDetailsPage = () => {
   }
 
   const handleCancelOrder = () => {
+    if(!data){
+      return
+    }
+    
     const confirmCancel = window.confirm(
       "Are you sure you want to cancel this order?",
     );
@@ -63,6 +70,7 @@ const OrderDetailsPage = () => {
     if (!confirmCancel) {
       return;
     }
+
 
     cancelOrderMutation(data.id, {
       onSuccess: () => {
@@ -87,14 +95,17 @@ const OrderDetailsPage = () => {
         <div className="flex justify-between">
           <div>
             <p className="text-gray-500 text-sm">Placed On</p>
-
-            <p>{new Date(data.created_at).toLocaleDateString()}</p>
+            <p>
+              {data.created_at
+                ? new Date(data.created_at).toLocaleDateString()
+                : "N/A"}
+            </p>
           </div>
 
           <div>
             <p className="text-gray-500 text-sm">Status</p>
 
-            <p className="capitalize">{data.status}</p>
+            <p className="capitalize">{data?.status}</p>
           </div>
 
           <div>

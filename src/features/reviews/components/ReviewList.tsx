@@ -33,7 +33,7 @@ const ReviewList = ({user, reviews, onEditReview }: ReviewListProps) => {
             </div>
 
             <div className="font-semibold text-yellow-500 flex flex-col">
-              {user.id ===  review.user_id? 
+              {user && user?.id ===  review.user_id? 
               <button
                 type="button"
                 className="text-sm font-medium text-blue-600 hover:text-blue-800 cursor-pointer ml-auto"

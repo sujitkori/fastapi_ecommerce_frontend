@@ -399,7 +399,7 @@ const ProductFormModal = ({
                   Category
                 </label>
                 <CategoryDropdown
-                  selectedCategory={formData.category_id ?? null}
+                  selectedCategory={formData.category_id ?? undefined}
                   onCategoryChange={handleCategoryChange}
                 />
                 {errors.category_id && (

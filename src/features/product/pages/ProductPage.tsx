@@ -47,8 +47,8 @@ const ProductPage = () => {
         setSearch(value)
     }
 
-    const handleCategoryChange = (categoryId: number | null) => {
-        setselectedCategory(categoryId)
+    const handleCategoryChange = (categoryId: number | undefined) => {
+        setselectedCategory(categoryId ?? null)
     }
 
     const handleSortChange = (value: string) => {
@@ -77,7 +77,7 @@ const ProductPage = () => {
             </div>
 
             <div className="flex justify-between gap-4 mb-6">
-                <CategoryDropdown selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} />
+                <CategoryDropdown selectedCategory={selectedCategory ?? undefined} onCategoryChange={handleCategoryChange} />
 
                 <ProductSortDropdown sort={sort} onSortChange={handleSortChange} />
 

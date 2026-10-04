@@ -219,7 +219,7 @@ const CartPage = () => {
 
                   <p className="text-xl font-bold text-green-600 mt-3">
                     ₹
-                    {new Intl.NumberFormat("en-IN").format(item.product?.price)}
+                    {new Intl.NumberFormat("en-IN").format(item.product?.price || 0)}
                   </p>
 
                   <div className="mt-6">

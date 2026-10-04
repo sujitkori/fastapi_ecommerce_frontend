@@ -51,15 +51,19 @@ const ProductDetailPage = () => {
     useUpdateReview();
 
   const stockStatus =
-    data?.stock_quantity === 0
+    (data?.stock_quantity ?? 0) === 0
       ? "Out of Stock"
-      : data?.stock_quantity <= 5
+      : (data?.stock_quantity ?? 0) <= 5
         ? "Only a few left"
         : "In Stock";
 
   const myReview = reviews?.find((review) => {
-    return review.user_id === user.id && review.product_id === productId;
-  });
+  return (
+    user &&
+    review.user_id === user.id &&
+    review.product_id === productId
+  );
+});
 
   // const shouldShowReviewForm =
   // (mode === "create" && !myReview) ||
@@ -78,6 +82,9 @@ const ProductDetailPage = () => {
   };
 
   const handlePlusClick = () => {
+    if (!data) {
+    return;
+  }
     setQuantity((prev) => {
       return prev < data.stock_quantity ? prev + 1 : data.stock_quantity;
     });
@@ -89,6 +96,10 @@ const ProductDetailPage = () => {
   };
 
   const handleAddToCart = () => {
+    if (!data) {
+    return;
+  }
+
     const payload: AddToCartRequest = {
       product_id: data.id,
       quantity,
@@ -107,6 +118,10 @@ const ProductDetailPage = () => {
   };
 
   const handleCreateReview = (reviewData: ReviewRequest) => {
+    if (!data) {
+    return;
+  }
+
     createReviewMutation(
       { productId: data.id, reviewData: reviewData },
       {
@@ -121,7 +136,7 @@ const ProductDetailPage = () => {
   };
 
   const handleUpdateReview = (reviewData: ReviewRequest) => {
-    if (!selectedReview) {
+    if (!selectedReview || !data) {
       return;
     }
     updateReviewMutation(
@@ -253,7 +268,7 @@ const ProductDetailPage = () => {
             {shouldShowReviewForm && (
               <ReviewForm
                 mode={mode}
-                review={mode === "edit" ? selectedReview : undefined}
+                review={mode === "edit" ? selectedReview ?? undefined : undefined}
                 onSubmit={
                   mode === "edit" ? handleUpdateReview : handleCreateReview
                 }
